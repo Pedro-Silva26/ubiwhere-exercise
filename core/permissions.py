@@ -4,6 +4,12 @@ from rest_framework.request import Request
 
 
 class IsAdminOrReadOnly(BasePermission):
+    """
+    Permission class to restrict access based on user roles and HTTP methods.
+
+    This permission class allows full access to users with staff status and
+    read-only access (safe methods) to other users.
+    """
 
     def has_permission(self, request: Request, view: View) -> bool:
         if request.user.is_staff:

@@ -6,6 +6,26 @@ from traffic.models import RoadSegment, TrafficRecorder
 
 
 class RoadSegmentsFilter(django_filters.FilterSet):
+    """
+      FilterSet for filtering RoadSegment instances based on traffic intensity.
+
+      This class defines a custom filter for road segments to be filtered
+      based on the latest traffic intensity. The intensity is determined
+      by analyzing the average speed of traffic recordings associated with
+      each road segment and considering predefined intensity thresholds (Defined in settings).
+
+      Attributes
+      ----------
+      traffic_intensity : ChoiceFilter
+          A filter for selecting road segments based on traffic intensity
+          ("Baixa", "Media", "Elevada").
+
+      Methods
+      -------
+      filter_by_latest_intensity(queryset: QuerySet[RoadSegment], name: str, value: str) -> QuerySet[RoadSegment]
+          Static method for filtering road segments by their latest traffic intensity.
+      """
+
     traffic_intensity = django_filters.ChoiceFilter(
         choices=(
             ("Baixa", "Baixa"),

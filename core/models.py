@@ -1,6 +1,17 @@
 from django.db import models
 
+
 class TimeStampMixin(models.Model):
+    """
+    Mixin that provides timestamp fields to track creation and modification times.
+
+    Attributes:
+        created_at: DateTimeField automatically set to the current timestamp when the
+            object is created.
+        updated_at: DateTimeField automatically updated to the current timestamp whenever
+            the object is saved.
+    """
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
