@@ -11,6 +11,14 @@ class RoadSegment(models.Model):
         unique=True,
     )
 
+    @property
+    def traffic_records_count(self):
+        return self.trafficrecorder_set.count()
+
+    @property
+    def latest_traffic_record_intensity(self):
+        return self.trafficrecorder_set.latest().intensity
+
 
 class TrafficRecorder(TimeStampMixin):
     road_segment = models.ForeignKey(RoadSegment, on_delete=models.CASCADE)
@@ -23,3 +31,6 @@ class TrafficRecorder(TimeStampMixin):
         elif self.avg_speed <= settings.MEDIUM_INTENSITY_VALUE:
             return "Media"
         return "Baixa"
+
+    class Meta:
+        get_latest_by = "updated_at"
