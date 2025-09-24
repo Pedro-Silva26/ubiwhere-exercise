@@ -1,3 +1,5 @@
 from django.contrib import admin
 
-# Register your models here.
+from traffic.models import TrafficCarRecord
+
+admin.site.register(TrafficCarRecord)

@@ -56,3 +56,13 @@ class TrafficRecordListSerializer(serializers.ListSerializer):
     def create(self, validated_data):
         records = [self.child.create(item) for item in validated_data]
         return records
+
+
+class TrafficRecordDetailSerializer(serializers.ModelSerializer):
+    sensor_uuid = serializers.UUIDField(source='sensor.id')
+    sensor_name = serializers.CharField(source='sensor.name')
+    road_segment = RoadSegmentSerializer()
+
+    class Meta:
+        model = TrafficCarRecord
+        fields = ['road_segment', 'timestamp', 'sensor_uuid', 'sensor_name']
