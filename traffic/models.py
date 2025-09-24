@@ -3,6 +3,8 @@ from core.models import TimeStampMixin
 from django.db import models
 
 from django_project import settings
+from sensors.models import Sensor
+from vehicles.models import Car
 
 
 class RoadSegment(models.Model):
@@ -77,3 +79,25 @@ class TrafficRecorder(TimeStampMixin):
 
     class Meta:
         get_latest_by = "updated_at"
+
+
+class TrafficCarRecord(models.Model):
+    """
+    Represents a record of car traffic for a specific road segment and sensor.
+
+    This model captures information about a car's presence at a specific road segment
+    detected by a sensor (Can be moving sensor) at a precise point in time. It is intended for use in traffic
+    monitoring and analysis systems.
+
+    Attributes:
+        road_segment: Reference to the associated road segment.
+        car: Reference to the associated car.
+        sensor: Reference to the associated sensor.
+        timestamp: The exact date and time when the sensor detected the car at the given
+            road segment.
+    """
+
+    road_segment = models.ForeignKey(RoadSegment, on_delete=models.CASCADE)
+    car = models.ForeignKey(Car, on_delete=models.CASCADE)
+    sensor = models.ForeignKey(Sensor, on_delete=models.CASCADE)
+    timestamp = models.DateTimeField()

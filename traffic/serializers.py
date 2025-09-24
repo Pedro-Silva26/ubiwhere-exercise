@@ -1,6 +1,8 @@
 from rest_framework import serializers
 
-from traffic.models import RoadSegment, TrafficRecorder
+from sensors.models import Sensor
+from traffic.models import RoadSegment, TrafficRecorder, TrafficCarRecord
+from vehicles.models import Car
 
 
 class RoadSegmentSerializer(serializers.ModelSerializer):
@@ -17,3 +19,40 @@ class TrafficRecorderSerializer(serializers.ModelSerializer):
     class Meta:
         model = TrafficRecorder
         fields = "__all__"
+
+
+class TrafficRecordSerializer(serializers.Serializer):
+    road_segment = serializers.IntegerField()
+    car__license_plate = serializers.CharField(max_length=20)
+    timestamp = serializers.DateTimeField()
+    sensor__uuid = serializers.UUIDField()
+
+    def create(self, validated_data):
+        car, _ = Car.objects.get_or_create(
+            license_plate=validated_data["car__license_plate"]
+        )
+
+        try:
+            sensor = Sensor.objects.get(id=validated_data["sensor__uuid"])
+        except Sensor.DoesNotExist:
+            raise serializers.ValidationError("Sensor not registered.")
+
+        try:
+            road_segment = RoadSegment.objects.get(id=validated_data["road_segment"])
+        except RoadSegment.DoesNotExist:
+            raise serializers.ValidationError("Road Segment not registered.")
+
+        return TrafficCarRecord.objects.create(
+            car=car,
+            road_segment=road_segment,
+            timestamp=validated_data["timestamp"],
+            sensor=sensor
+        )
+
+
+class TrafficRecordListSerializer(serializers.ListSerializer):
+    child = TrafficRecordSerializer()
+
+    def create(self, validated_data):
+        records = [self.child.create(item) for item in validated_data]
+        return records
