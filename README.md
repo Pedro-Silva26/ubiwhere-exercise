@@ -57,6 +57,13 @@ Open http://127.0.0.1:8000
 2. **Populate Road Segments and Traffic Records**
     ```bash
    docker-compose exec web uv run python manage.py import_traffic_and_routes
+3. **Populate User and Token**
+    ```bash
+   docker-compose exec web uv run python manage.py create_user_and_sensor_token
+
+Admin user:
+username: admin
+password: 123
 
 ## Run Tests
 
