@@ -17,3 +17,9 @@ class IsAdminOrReadOnly(BasePermission):
         if request.method in SAFE_METHODS:
             return True
         return False
+
+
+class SensorTokenAuthPermission(BasePermission):
+
+    def has_permission(self, request: Request, view: View) -> bool:
+        return request.user

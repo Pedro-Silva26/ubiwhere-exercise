@@ -1,3 +1,5 @@
+import uuid
+
 from django.db import models
 
 
@@ -17,3 +19,9 @@ class TimeStampMixin(models.Model):
 
     class Meta:
         abstract = True
+
+
+class SensorTokenAuth(models.Model):
+    client = models.CharField(max_length=255, null=False)
+    token = models.UUIDField(primary_key=True, null=False)
+    is_active = models.BooleanField(default=True)

@@ -137,7 +137,6 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ['core.permissions.IsAdminOrReadOnly', ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
     ],
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 
