@@ -2,9 +2,9 @@ name: Backend CI/CD Pipeline
 
 on:
   push:
-    # branches: [ "main" ] 
+  # branches: [ "main" ]
   pull_request:
-    # branches: [ "main" ] 
+  # branches: [ "main" ]
 
 jobs:
   build:
@@ -53,7 +53,7 @@ jobs:
 
       - name: Wait for PostGIS
         run: |
-          until pg_isready -h postgres -U admin -d traffic; do
+          until pg_isready -h postgres -U admin; do
             echo "Waiting for PostGIS..."
             sleep 2
           done
