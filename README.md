@@ -42,20 +42,20 @@ Before running the project, ensure you have the following installed:
 
 2. **Run migrations inside the container**
      ```bash
-     docker compose exec web uv run python manage.py migrate
+     docker compose exec api uv run python manage.py migrate
 
 ## Populate Database
 
 1. **Populate Sensors**
     ```bash
-   docker compose exec web uv run python manage.py import_sensors
+   docker compose exec api uv run python manage.py import_sensors
 
 2. **Populate Road Segments and Traffic Records**
     ```bash
-   docker compose exec web uv run python manage.py import_traffic_and_routes
+   docker compose exec api uv run python manage.py import_traffic_and_routes
 3. **Populate User and Token**
     ```bash
-   docker compose exec web uv run python manage.py create_user_and_sensor_token
+   docker compose exec api uv run python manage.py create_user_and_sensor_token
 
 Admin user:
 username: admin
@@ -65,7 +65,7 @@ password: 123
 
 1. **Run Tests on Docker**
     ```bash 
-    docker compose exec web uv run pytest
+    docker compose exec api uv run pytest
 
 
 ## Explore the API
