@@ -1,10 +1,17 @@
 from django.shortcuts import render
+from drf_spectacular.utils import extend_schema, OpenApiResponse
 from rest_framework.generics import RetrieveAPIView
 
+from core.serializers import ErrorSerializer
 from vehicles.models import Car
 from vehicles.serializers import CarTrafficSerializer
 
-
+@extend_schema(responses={
+    200: CarTrafficSerializer,
+    401: ErrorSerializer,
+    403: ErrorSerializer,
+    404: ErrorSerializer,
+})
 class CarTrafficView(RetrieveAPIView):
     """
     Handles retrieval operations for car traffic data.

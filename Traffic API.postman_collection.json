@@ -1,0 +1,507 @@
+{
+	"info": {
+		"_postman_id": "2ad2c8fd-2707-4b60-8c19-37f2754e762f",
+		"name": "Traffic API",
+		"description": "Traffic API Ubiwhere",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13645103",
+		"_collection_link": "https://lma111.postman.co/workspace/2600e183-59ca-4d9e-8953-7179a709d253/collection/13645103-2ad2c8fd-2707-4b60-8c19-37f2754e762f?action=share&source=collection_link&creator=13645103"
+	},
+	"item": [
+		{
+			"name": "Road Segments",
+			"item": [
+				{
+					"name": "List Road Segments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/traffic/road-segments?page={{page}}&traffic_intensity={{traffic_intensity}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"traffic",
+								"road-segments"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "{{page}}"
+								},
+								{
+									"key": "traffic_intensity",
+									"value": "{{traffic_intensity}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Road Segment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Example Road\",\n  \"road\": {\n    \"type\": \"LineString\",\n    \"coordinates\": [[22.4707,70.0577],[12.9721,77.5933]]\n  }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/traffic/road-segments",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"traffic",
+								"road-segments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Road Segment",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/traffic/road-segments/{{id}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"traffic",
+								"road-segments",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Road Segment",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Updated Road\",\n  \"road\": {\n    \"type\": \"LineString\",\n    \"coordinates\": [[22.4707,70.0577],[12.9721,77.5933]]\n  }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/traffic/road-segments/{{id}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"traffic",
+								"road-segments",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Partial Update Road Segment",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Partially Updated Road\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/traffic/road-segments/{{id}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"traffic",
+								"road-segments",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Road Segment",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/traffic/road-segments/{{id}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"traffic",
+								"road-segments",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "basic",
+				"basic": [
+					{
+						"key": "username",
+						"value": "{{username}}",
+						"type": "string"
+					},
+					{
+						"key": "password",
+						"value": "{{password}}",
+						"type": "string"
+					}
+				]
+			}
+		},
+		{
+			"name": "Traffic Records",
+			"item": [
+				{
+					"name": "List Traffic Records",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/traffic/traffic-records?page={{page}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"traffic",
+								"traffic-records"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "{{page}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Traffic Record",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"road_segment\": 1,\n  \"avg_speed\": 60.5\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/traffic/traffic-records",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"traffic",
+								"traffic-records"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve Traffic Record",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/traffic/traffic-records/{{id}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"traffic",
+								"traffic-records",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Traffic Record",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"road_segment\": 1,\n  \"avg_speed\": 65\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/traffic/traffic-records/{{id}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"traffic",
+								"traffic-records",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Partial Update Traffic Record",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"avg_speed\": 62\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/traffic/traffic-records/{{id}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"traffic",
+								"traffic-records",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Traffic Record",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/traffic/traffic-records/{{id}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"traffic",
+								"traffic-records",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "basic",
+				"basic": [
+					{
+						"key": "username",
+						"value": "{{username}}",
+						"type": "string"
+					},
+					{
+						"key": "password",
+						"value": "{{password}}",
+						"type": "string"
+					}
+				]
+			}
+		},
+		{
+			"name": "Cars",
+			"item": [
+				{
+					"name": "Retrieve Car Traffic",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/vehicles/cars/{{license_plate}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"vehicles",
+								"cars",
+								"{{license_plate}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "basic",
+				"basic": [
+					{
+						"key": "username",
+						"value": "{{username}}",
+						"type": "string"
+					},
+					{
+						"key": "password",
+						"value": "{{password}}",
+						"type": "string"
+					}
+				]
+			}
+		},
+		{
+			"name": "Traffic Car Records",
+			"item": [
+				{
+					"name": "Create Traffic Car Records",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n  {\n    \"road_segment\": 1,\n    \"car__license_plate\": \"ABC123\",\n    \"timestamp\": \"2025-09-25T10:00:00Z\",\n    \"sensor__uuid\": \"550e8400-e29b-41d4-a716-446655440000\"\n  }\n]"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/traffic/traffic-car-records",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"traffic",
+								"traffic-car-records"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "apikey",
+				"apikey": [
+					{
+						"key": "key",
+						"value": "api-key",
+						"type": "string"
+					},
+					{
+						"key": "value",
+						"value": "{{apiKey}}",
+						"type": "string"
+					},
+					{
+						"key": "in",
+						"value": "header",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://api.example.com"
+		},
+		{
+			"key": "username",
+			"value": ""
+		},
+		{
+			"key": "password",
+			"value": ""
+		},
+		{
+			"key": "page",
+			"value": "1"
+		},
+		{
+			"key": "traffic_intensity",
+			"value": "Baixa"
+		},
+		{
+			"key": "id",
+			"value": "1"
+		},
+		{
+			"key": "license_plate",
+			"value": "ABC123"
+		},
+		{
+			"key": "apiKey",
+			"value": ""
+		}
+	]
+}

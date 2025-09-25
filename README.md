@@ -38,28 +38,24 @@ Before running the project, ensure you have the following installed:
 1. **Build and start the containers**
 
     ```bash
-    docker-compose up --build
+    docker compose up -d --build
 
 2. **Run migrations inside the container**
      ```bash
-     docker-compose exec web uv run python manage.py migrate
-
-3. **Access the API**
-
-Open http://127.0.0.1:8000
+     docker compose exec web uv run python manage.py migrate
 
 ## Populate Database
 
 1. **Populate Sensors**
     ```bash
-   docker-compose exec web uv run python manage.py import_sensors
+   docker compose exec web uv run python manage.py import_sensors
 
 2. **Populate Road Segments and Traffic Records**
     ```bash
-   docker-compose exec web uv run python manage.py import_traffic_and_routes
+   docker compose exec web uv run python manage.py import_traffic_and_routes
 3. **Populate User and Token**
     ```bash
-   docker-compose exec web uv run python manage.py create_user_and_sensor_token
+   docker compose exec web uv run python manage.py create_user_and_sensor_token
 
 Admin user:
 username: admin
@@ -69,4 +65,30 @@ password: 123
 
 1. **Run Tests on Docker**
     ```bash 
-    docker-compose exec web uv run python manage.py test
+    docker compose exec web uv run pytest
+
+
+## Explore the API
+
+### 1. Using Postman (Import Collection File)
+
+You can explore the API quickly by importing a Postman collection file.
+
+**Steps:**
+
+1. Open **Postman**.
+2. Click on **Import** (top-left corner).
+3. Select **File** and choose the Postman collection file `Traffic API.postman_collection.json`.
+4. Click **Import**.
+
+---
+
+### 2. Using Swagger (DRF built-in docs)
+
+Swagger provides an interactive API documentation page where you can try endpoints directly in your browser.
+
+**Steps:**
+
+1. Browse to http://127.0.0.1:8001/api/docs/swagger-ui/
+2. Click on **Authorize** and enter the authentications.
+3. Explore the different endpoints

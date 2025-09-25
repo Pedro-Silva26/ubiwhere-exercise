@@ -1,9 +1,11 @@
+from drf_spectacular.utils import extend_schema_view, extend_schema, OpenApiResponse
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from core.authentication import SensorTokenAuthentication
 from core.permissions import SensorTokenAuthPermission
+from core.serializers import ErrorSerializer
 from traffic.filters import RoadSegmentsFilter
 from traffic.models import RoadSegment, TrafficRecorder, TrafficCarRecord
 from traffic.serializers import RoadSegmentSerializer, TrafficRecorderSerializer, TrafficRecordListSerializer, \
@@ -11,6 +13,54 @@ from traffic.serializers import RoadSegmentSerializer, TrafficRecorderSerializer
 from django_filters import rest_framework as filters
 
 
+@extend_schema_view(
+    list=extend_schema(
+        responses={200: RoadSegmentSerializer(many=True)},
+    ),
+    retrieve=extend_schema(
+        responses={
+            200: RoadSegmentSerializer,
+            404: ErrorSerializer,
+        }
+    ),
+    create=extend_schema(
+        responses={
+            201: RoadSegmentSerializer,
+            400: OpenApiResponse(),
+            401: ErrorSerializer,
+            403: ErrorSerializer,
+
+        }
+    )
+    ,
+    update=extend_schema(
+        responses={
+            200: RoadSegmentSerializer,
+            400: OpenApiResponse(),
+            401: ErrorSerializer,
+            403: ErrorSerializer,
+            404: ErrorSerializer,
+        }
+    )
+    ,
+    destroy=extend_schema(
+        responses={
+            204: RoadSegmentSerializer,
+            401: ErrorSerializer,
+            403: ErrorSerializer,
+            404: ErrorSerializer,
+        }
+    )
+    ,
+    partial_update=extend_schema(
+        responses={
+            200: OpenApiResponse(),
+            401: ErrorSerializer,
+            403: ErrorSerializer,
+            404: ErrorSerializer,
+        }
+    )
+)
 class RoadSegmentViewSet(viewsets.ModelViewSet):
     """
     Handles operations for road segment data management.
@@ -40,6 +90,54 @@ class RoadSegmentViewSet(viewsets.ModelViewSet):
     filterset_class = RoadSegmentsFilter
 
 
+@extend_schema_view(
+    list=extend_schema(
+        responses={200: TrafficRecorderSerializer(many=True)},
+    ),
+    retrieve=extend_schema(
+        responses={
+            200: TrafficRecorderSerializer,
+            404: ErrorSerializer,
+        }
+    ),
+    create=extend_schema(
+        responses={
+            201: TrafficRecorderSerializer,
+            400: OpenApiResponse(),
+            401: ErrorSerializer,
+            403: ErrorSerializer,
+
+        }
+    )
+    ,
+    update=extend_schema(
+        responses={
+            200: TrafficRecorderSerializer,
+            400: OpenApiResponse(),
+            401: ErrorSerializer,
+            403: ErrorSerializer,
+            404: ErrorSerializer,
+        }
+    )
+    ,
+    destroy=extend_schema(
+        responses={
+            204: TrafficRecorderSerializer,
+            401: ErrorSerializer,
+            403: ErrorSerializer,
+            404: ErrorSerializer,
+        }
+    )
+    ,
+    partial_update=extend_schema(
+        responses={
+            200: OpenApiResponse(),
+            401: ErrorSerializer,
+            403: ErrorSerializer,
+            404: ErrorSerializer,
+        }
+    )
+)
 class TrafficRecorderViewSet(viewsets.ModelViewSet):
     """
     Handles operations for recording and managing traffic data.
@@ -66,6 +164,14 @@ class TrafficDataView(APIView):
     permission_classes = [SensorTokenAuthPermission]
     authentication_classes = [SensorTokenAuthentication]
 
+    @extend_schema(
+        responses={
+            201: TrafficRecordSerializer(many=True),
+            400: OpenApiResponse(),
+            401: ErrorSerializer,
+            403: ErrorSerializer,
+        }
+    )
     def post(self, request):
         """
         Handles POST requests to create multiple traffic records.
