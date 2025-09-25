@@ -70,12 +70,14 @@ class TrafficRecorder(TimeStampMixin):
     avg_speed = models.FloatField()
 
     @property
-    def intensity(self) -> str:
+    def intensity(self) -> str | None:
         if self.avg_speed <= settings.HIGH_INTENSITY_VALUE:
             return "Elevada"
         elif self.avg_speed <= settings.MEDIUM_INTENSITY_VALUE:
             return "Media"
-        return "Baixa"
+        elif self.avg_speed > settings.MEDIUM_INTENSITY_VALUE:
+            return "Baixa"
+        return None
 
     class Meta:
         get_latest_by = "updated_at"

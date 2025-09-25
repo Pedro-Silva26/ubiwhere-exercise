@@ -60,7 +60,8 @@ class RoadSegmentsFilter(django_filters.FilterSet):
                     latest_avg_speed__lte=settings.MEDIUM_INTENSITY_VALUE,
                     then=Value("Media"),
                 ),
-                default=Value("Baixa"),
+                When(latest_avg_speed__gt=settings.MEDIUM_INTENSITY_VALUE, then=Value("Baixa")),
+                default=Value(None),
                 output_field=CharField(),
             ),
         )
